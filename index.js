@@ -24,9 +24,6 @@ app.post("/github-webhook", async (req, res) => {
     "sha256=" +
     crypto.createHmac("sha256", secret).update(req.rawBody).digest("hex");
 
-  console.log(expectedSignature);
-  console.log("Signature from GitHub:", req.headers["x-hub-signature-256"]);
-
   if (signature !== expectedSignature) {
     console.warn("❌ Invalid signature");
     return res.status(401).send("Invalid signature");
